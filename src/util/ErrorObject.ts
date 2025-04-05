@@ -1,9 +1,9 @@
 import { Request } from 'express';
-import { HttpError } from '../types/types';
-import { ApplicationEnvironment } from '../constant/application';
-import { ResponseMessage } from '../constant/responseMessage';
-import config from '../config/config';
-import Logger from './Logger';
+import { HttpError } from '../types/types.js';
+import { ApplicationEnvironment } from '../constant/application.js';
+import { ResponseMessage } from '../constant/responseMessage.js';
+import config from '../config/config.js';
+import Logger from './Logger.js';
 
 export default (
   // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents

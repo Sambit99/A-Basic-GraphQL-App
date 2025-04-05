@@ -1,11 +1,18 @@
 import { createLogger, format, transports } from 'winston';
 import { ConsoleTransportInstance, FileTransportInstance } from 'winston/lib/winston/transports';
 import * as sourceMapSupport from 'source-map-support';
-import { ApplicationEnvironment } from '../constant/application';
-import config from '../config/config';
+import { ApplicationEnvironment } from '../constant/application.js';
+import config from '../config/config.js';
 import path from 'path';
 import util from 'util';
 import { blue, green, magenta, red, yellow } from 'colorette';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = dirname(__filename);
 
 // Linking Trace Support
 sourceMapSupport.install();

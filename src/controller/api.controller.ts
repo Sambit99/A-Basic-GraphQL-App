@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import ApiResponse from '../util/ApiResponse';
-import { StatusCode } from '../constant/statusCodes';
-import { ResponseMessage } from '../constant/responseMessage';
-import ApiError from '../util/ApiError';
-import Quicker from '../util/Quicker';
+import ApiResponse from '../util/ApiResponse.js';
+import { StatusCode } from '../constant/statusCodes.js';
+import { ResponseMessage } from '../constant/responseMessage.js';
+import ApiError from '../util/ApiError.js';
+import Quicker from '../util/Quicker.js';
 
 export default {
   self: (req: Request, res: Response, next: NextFunction) => {
