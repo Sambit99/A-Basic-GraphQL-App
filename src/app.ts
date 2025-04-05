@@ -1,42 +1,99 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
-import path from 'path';
-import helmet from 'helmet';
-import cors from 'cors';
-import { StatusCode } from './constant/statusCodes';
-import { ResponseMessage } from './constant/responseMessage';
-import ApiError from './util/ApiError';
+// import express, { Application, NextFunction, Request, Response } from 'express';
+// import path from 'path';
+// import helmet from 'helmet';
+// import cors from 'cors';
+// import { StatusCode } from './constant/statusCodes.js';
+// import { ResponseMessage } from './constant/responseMessage.js';
+// import ApiError from './util/ApiError.js';
 
-const app: Application = express();
+// import { fileURLToPath } from 'url';
+// import { dirname } from 'path';
 
-// Middlewares
-app.use(helmet());
-app.use(
-  cors({
-    origin: ['http://localhost:4000'],
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-    credentials: true // Note: In Order to allow Cookies
-  })
-);
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use(express.urlencoded({ extended: false }));
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
-// Routes
-import ApiRouter from './router/api.router';
-import globalErrorHandler from './middleware/globalErrorHandler';
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import Logger from './util/Logger.js';
+import config from './config/config.js';
 
-app.use('/api/v1', ApiRouter);
+const port = Number(config.PORT) || 3000;
 
-// 404 Error Handler
-app.use((req: Request, _: Response, next: NextFunction) => {
-  try {
-    throw new Error(ResponseMessage.NOT_FOUND('Route'));
-  } catch (error) {
-    ApiError(next, error, req, StatusCode.NOT_FOUND);
+const typeDefs = `#graphql
+  type Book {
+    title: String
+    author: String
+  }
+
+  type Query {
+    books: [Book]
+  }
+`;
+
+const books = [
+  {
+    title: 'The Awakening',
+    author: 'Kate Chopin'
+  },
+  {
+    title: 'City of Glass',
+    author: 'Paul Auster'
+  }
+];
+// A map of functions which return data for the schema.
+const resolvers = {
+  Query: {
+    books: () => books
+  }
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+});
+
+const { url } = await startStandaloneServer(server, {
+  listen: { port }
+});
+
+Logger.info('Apollo Server Started', {
+  meta: {
+    PORT: port,
+    SERVER_URL: url
   }
 });
 
-// Global Error Handler
-app.use(globalErrorHandler);
+// const app: Application = express();
 
-export default app;
+// Middlewares
+// app.use(helmet());
+// app.use(
+//   cors({
+//     origin: ['http://localhost:4000'],
+//     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+//     credentials: true // Note: In Order to allow Cookies
+//   })
+// );
+// app.use(express.json());
+// app.use(express.static(path.join(__dirname, '..', 'public')));
+// app.use(express.urlencoded({ extended: false }));
+
+// Routes
+// import ApiRouter from './router/api.router.js';
+// import globalErrorHandler from './middleware/globalErrorHandler.js';
+
+// app.use('/api/v1', ApiRouter);
+
+// 404 Error Handler
+// app.use((req: Request, _: Response, next: NextFunction) => {
+//   try {
+//     throw new Error(ResponseMessage.NOT_FOUND('Route'));
+//   } catch (error) {
+//     ApiError(next, error, req, StatusCode.NOT_FOUND);
+//   }
+// });
+
+// Global Error Handler
+// app.use(globalErrorHandler);
+
+// export default app;
