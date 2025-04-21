@@ -1,10 +1,18 @@
 export const graphQlSchema = `#graphql
-type Book {
-    title: String
-    author: String
-  }
 
-  type Query {
-    books: [Book]
-  }
+type User{
+    _id: ID!
+    fullname: String!
+    username: String!
+    email: String!
+    password: String!
+    role: String!
+    account_type: String!
+    createdAt: String!
+    updatedAt: String!
+}
+ 
+type Query {
+    users: [User]
+}
 `;
