@@ -16,19 +16,9 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import Logger from './util/Logger.js';
 import config from './config/config.js';
+import { graphQlSchema } from './graphql/schema/schema.js';
 
 const port = Number(config.PORT) || 3000;
-
-const typeDefs = `#graphql
-  type Book {
-    title: String
-    author: String
-  }
-
-  type Query {
-    books: [Book]
-  }
-`;
 
 const books = [
   {
@@ -48,7 +38,7 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: graphQlSchema,
   resolvers
 });
 
@@ -59,6 +49,7 @@ const { url } = await startStandaloneServer(server, {
 Logger.info('Apollo Server Started', {
   meta: {
     PORT: port,
+    ENV: config.ENV,
     SERVER_URL: url
   }
 });
