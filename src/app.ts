@@ -17,8 +17,12 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import Logger from './util/Logger.js';
 import config from './config/config.js';
 import { graphQlSchema } from './graphql/schema/schema.js';
+import databaseService from './service/databaseService.js';
 
 const port = Number(config.PORT) || 3000;
+
+const db = await databaseService.connect();
+Logger.info('DATABASE CONNECTED', { meta: { name: db.name } });
 
 const books = [
   {
