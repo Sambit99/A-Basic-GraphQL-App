@@ -11,8 +11,22 @@ type User{
     createdAt: String!
     updatedAt: String!
 }
+
+type Post {
+    _id: ID!
+    content: String
+    imageFile: String
+    videoFile: String
+    visibility: String!
+    likesCount: Int!
+    commentsCount: Int!
+    sharesCount: Int!
+
+    owner: User
+}
  
 type Query {
     users: [User]
+    posts: [Post]
 }
 `;
