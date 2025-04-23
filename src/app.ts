@@ -19,25 +19,18 @@ import config from './config/config.js';
 import { graphQlSchema } from './graphql/schema/schema.js';
 import databaseService from './service/databaseService.js';
 
+import { getAllUsers } from './controller/user.controller.js';
+import { getAllPosts } from './controller/post.controller.js';
+
 const port = Number(config.PORT) || 3000;
 
 const db = await databaseService.connect();
 Logger.info('DATABASE CONNECTED', { meta: { name: db.name } });
 
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin'
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster'
-  }
-];
-// A map of functions which return data for the schema.
 const resolvers = {
   Query: {
-    books: () => books
+    users: getAllUsers,
+    posts: getAllPosts
   }
 };
 
