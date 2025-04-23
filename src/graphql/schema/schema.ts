@@ -28,5 +28,7 @@ type Post {
 type Query {
     users: [User]
     posts: [Post]
+    user(id:ID!): User
+    post(id:ID!): Post
 }
 `;
