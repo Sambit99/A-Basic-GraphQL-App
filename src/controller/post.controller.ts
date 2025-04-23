@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Post } from '../model/post.model.js';
 
 export const getAllPosts = async () => {
@@ -5,7 +6,7 @@ export const getAllPosts = async () => {
   return posts;
 };
 
-export const getPostById = async (id: string) => {
-  const posts = await Post.findById(id);
+export const getPostById = async (_: any, args: { id: string }) => {
+  const posts = await Post.findById(args.id);
   return posts;
 };
