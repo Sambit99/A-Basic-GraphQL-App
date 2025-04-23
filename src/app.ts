@@ -19,8 +19,8 @@ import config from './config/config.js';
 import { graphQlSchema } from './graphql/schema/schema.js';
 import databaseService from './service/databaseService.js';
 
-import { getAllUsers } from './controller/user.controller.js';
-import { getAllPosts } from './controller/post.controller.js';
+import { getAllUsers, getUserById } from './controller/user.controller.js';
+import { getAllPosts, getPostById } from './controller/post.controller.js';
 
 const port = Number(config.PORT) || 3000;
 
@@ -30,7 +30,9 @@ Logger.info('DATABASE CONNECTED', { meta: { name: db.name } });
 const resolvers = {
   Query: {
     users: getAllUsers,
-    posts: getAllPosts
+    posts: getAllPosts,
+    user: getUserById,
+    post: getPostById
   }
 };
 
