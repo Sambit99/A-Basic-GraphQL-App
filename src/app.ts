@@ -21,8 +21,9 @@ import { graphQlSchema } from './graphql/schema/schema.js';
 import databaseService from './service/databaseService.js';
 
 import { getAllUsers, getPostOwner, getUserById } from './controller/user.controller.js';
-import { getAllPosts, getPostById } from './controller/post.controller.js';
+import { getAllPosts, getPostById, getPostsOfUser } from './controller/post.controller.js';
 import { IPost } from './model/post.model.js';
+import { IUser } from './model/user.model.js';
 
 const port = Number(config.PORT) || 3000;
 
@@ -36,10 +37,11 @@ const resolvers = {
     user: getUserById,
     post: getPostById
   },
+  User: {
+    posts: async (user: IUser) => await getPostsOfUser(user._id)
+  },
   Post: {
-    owner: async (post: IPost) => {
-      return await getPostOwner(String(post.owner));
-    }
+    owner: async (post: IPost) => await getPostOwner(String(post.owner))
   }
 };
 
