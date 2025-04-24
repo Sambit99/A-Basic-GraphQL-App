@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-base-to-string */
 // import express, { Application, NextFunction, Request, Response } from 'express';
 // import path from 'path';
 // import helmet from 'helmet';
@@ -19,8 +20,9 @@ import config from './config/config.js';
 import { graphQlSchema } from './graphql/schema/schema.js';
 import databaseService from './service/databaseService.js';
 
-import { getAllUsers, getUserById } from './controller/user.controller.js';
+import { getAllUsers, getPostOwner, getUserById } from './controller/user.controller.js';
 import { getAllPosts, getPostById } from './controller/post.controller.js';
+import { IPost } from './model/post.model.js';
 
 const port = Number(config.PORT) || 3000;
 
@@ -33,6 +35,11 @@ const resolvers = {
     posts: getAllPosts,
     user: getUserById,
     post: getPostById
+  },
+  Post: {
+    owner: async (post: IPost) => {
+      return await getPostOwner(String(post.owner));
+    }
   }
 };
 
