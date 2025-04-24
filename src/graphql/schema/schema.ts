@@ -10,6 +10,8 @@ type User{
     account_type: String!
     createdAt: String!
     updatedAt: String!
+
+    posts: [Post]
 }
 
 type Post {
