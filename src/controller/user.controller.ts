@@ -7,6 +7,11 @@ export const getAllUsers = async () => {
 };
 
 export const getUserById = async (_: any, args: { id: string }) => {
-  const users = await User.findById(args.id);
-  return users;
+  const user = await User.findById(args.id);
+  return user;
+};
+
+export const getPostOwner = async (id: string) => {
+  const user = await User.findById(id);
+  return user;
 };
