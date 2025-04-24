@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-base-to-string */
+ 
 // import express, { Application, NextFunction, Request, Response } from 'express';
 // import path from 'path';
 // import helmet from 'helmet';
@@ -17,37 +17,19 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import Logger from './util/Logger.js';
 import config from './config/config.js';
-import { graphQlSchema } from './graphql/schema/schema.js';
 import databaseService from './service/databaseService.js';
 
-import { getAllUsers, getPostOwner, getUserById } from './controller/user.controller.js';
-import { getAllPosts, getPostById, getPostsOfUser } from './controller/post.controller.js';
-import { IPost } from './model/post.model.js';
-import { IUser } from './model/user.model.js';
+import { graphQlSchema } from './graphql/schema/schema.js';
+import { graphQlResolver } from './graphql/resolvers/resolver.js';
 
 const port = Number(config.PORT) || 3000;
 
 const db = await databaseService.connect();
 Logger.info('DATABASE CONNECTED', { meta: { name: db.name } });
 
-const resolvers = {
-  Query: {
-    users: getAllUsers,
-    posts: getAllPosts,
-    user: getUserById,
-    post: getPostById
-  },
-  User: {
-    posts: async (user: IUser) => await getPostsOfUser(user._id)
-  },
-  Post: {
-    owner: async (post: IPost) => await getPostOwner(String(post.owner))
-  }
-};
-
 const server = new ApolloServer({
   typeDefs: graphQlSchema,
-  resolvers
+  resolvers: graphQlResolver
 });
 
 const { url } = await startStandaloneServer(server, {
