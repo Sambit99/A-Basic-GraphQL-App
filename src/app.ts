@@ -12,34 +12,23 @@
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
 import Logger from './util/Logger.js';
 import config from './config/config.js';
 import databaseService from './service/databaseService.js';
-
-import { graphQlSchema } from './graphql/schema/schema.js';
-import { graphQlResolver } from './graphql/resolvers/resolver.js';
+import { connectGraphQL } from './graphql/graphql.js';
 
 const port = Number(config.PORT) || 3000;
 
 const db = await databaseService.connect();
 Logger.info('DATABASE CONNECTED', { meta: { name: db.name } });
 
-const server = new ApolloServer({
-  typeDefs: graphQlSchema,
-  resolvers: graphQlResolver
-});
-
-const { url } = await startStandaloneServer(server, {
-  listen: { port }
-});
+const graphQlServer = await connectGraphQL(port);
 
 Logger.info('Apollo Server Started', {
   meta: {
     PORT: port,
     ENV: config.ENV,
-    SERVER_URL: url
+    SERVER_URL: graphQlServer.url
   }
 });
 
