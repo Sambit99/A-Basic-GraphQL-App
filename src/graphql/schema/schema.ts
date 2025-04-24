@@ -33,4 +33,8 @@ type Query {
     user(id:ID!): User
     post(id:ID!): Post
 }
+
+type Mutation {
+    newUser(username:String!, fullname:String!, email:String!, password:String!): User
+}
 `;
