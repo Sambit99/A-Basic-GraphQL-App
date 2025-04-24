@@ -10,3 +10,8 @@ export const getPostById = async (_: any, args: { id: string }) => {
   const posts = await Post.findById(args.id);
   return posts;
 };
+
+export const getPostsOfUser = async (id: string) => {
+  const userPosts = await Post.find({ owner: id });
+  return userPosts;
+};
