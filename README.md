@@ -4,7 +4,7 @@ A simple and modular GraphQL server setup built using TypeScript. This project i
 
 ## 📦 Project Structure
 
-```
+```typescript
 ├── src/                         # Main source directory containing all app-related code and logic.
 │   │── config/                  # Centralized configuration for environment variables, server settings, etc.
 │   │── constant/                # Stores shared constant values used across the app.
@@ -37,6 +37,7 @@ A simple and modular GraphQL server setup built using TypeScript. This project i
 ├── package-lock.json
 ├── package.json
 └── tsconfig.json                # TypeScript configuration file
+
 ```
 
 ## 🚀 Getting Started
