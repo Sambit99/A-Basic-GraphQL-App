@@ -9,8 +9,8 @@ A simple and modular GraphQL server setup built using TypeScript. This project i
 │   │── config/                  # Centralized configuration for environment variables, server settings, etc.
 │   │── constant/                # Stores shared constant values used across the app.
 │   │── controller/              # Handles incoming HTTP requests and sends appropriate responses.
-│	  │
-│	  │── graphql/
+│	│
+│	│── graphql/
 │   │   │── resolvers/  		 # Contains resolver functions that define how GraphQL queries and mutations are handled.
 │   │   │    └── resolver.ts 	 # A resolver file implementing the logic for GraphQL operations.
 │   │   │── schema/				 # GraphQL schema definitions, including types, queries, and mutations.
