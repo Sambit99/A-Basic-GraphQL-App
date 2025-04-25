@@ -11,11 +11,11 @@ A simple and modular GraphQL server setup built using TypeScript. This project i
 │   │── controller/              # Handles incoming HTTP requests and sends appropriate responses.
 │   │
 │   │── graphql/
-│   │   │── resolvers/  		     # Contains resolver functions that define how GraphQL queries and mutations are handled.
-│   │   │    └── resolver.ts 	   # A resolver file implementing the logic for GraphQL operations.
-│   │   │── schema/				       # GraphQL schema definitions, including types, queries, and mutations.
-│   │   │    └── schema.ts 	 	   # Defines GraphQL schema structure such as types, queries, and mutations using SDL or a code-first approach.
-│   │   └── graphql.ts       	   # GraphQL server setup including schema, resolvers, and integration with Express/Apollo.
+│   │   │── resolvers/		     
+│   │   │    └── resolver.ts
+│   │   │── schema/
+│   │   │    └── schema.ts
+│   │   └── graphql.ts
 │   │ 
 │   │── middleware/              # Custom Middleware functions for request handling (e.g., authentication, logging).
 │   │── model/                   # Contains database models/schema definitions (e.g., using Mongoose, Prisma, etc.).
